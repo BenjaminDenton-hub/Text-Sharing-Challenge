@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text Sharing</title>
+  </head>
+  <body style="text-align:center;" >
+    <form action="/<%= text_id %>" method="POST" accept-charset="utf-8">
+      <div>
+        <label for="shared_text">Here is your text!</label>
+        <br><br>
+        <p><%=new_shared_text%></p>
+        <br><br>
+        <p> If you would like to like to update the text, then copy & paste in the text field then make your changes and hit the button again!</p>
+        <br><br>
+        <input type="text" name="shared_text" id="shared_text">
+        <br><br>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+    <br><br>
+    <p>If you would like to see details on your text, please visit this address: localhost:4001/<%= text_id %>/details</p>
+  </body>
+</html>

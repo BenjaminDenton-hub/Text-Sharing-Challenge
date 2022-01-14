@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text Sharing</title>
+  </head>
+  <body style="text-align:center;">
+    <br>
+    <p>:Current Text:</p>
+    <p><%= current_text %></p>
+    <br><br><br>
+    <p>:Date Created:</p>
+    <p><%= created %></p>
+    <br><br><br><br>
+    <p>:Revision History:</p>
+    <p><%= revision_history %></p>
+  </body>
+</html>

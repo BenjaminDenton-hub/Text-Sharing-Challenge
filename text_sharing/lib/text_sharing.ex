@@ -3,22 +3,47 @@ defmodule TextSharing do
 
   alias TextSharing.DataStore
 
-  def shorten(long_url) do
-    case DataStore.exists?(long_url) do
-      true ->
-        {:ok, old_short_url} = DataStore.get_short_url(long_url)
-        old_short_url
+  def new_share(shared_text) do
+    today = DateTime.utc_now()
+    text_id = for _ <- 1..10, into: "", do: <<Enum.random('0123456789abcdef')>>
 
-      _ ->
-        short_token = for _ <- 1..10, into: "", do: <<Enum.random('0123456789abcdef')>>
-        short_url = "localhost:4001/" <> short_token
-        Logger.info("Shortened " <> long_url <> " to " <> short_url <> "!")
-        DataStore.add_new_url(long_url, short_url)
-        short_url
-    end
+    text_map = %{
+      current_text: shared_text,
+      created: today,
+      revision_history: %{
+        "1" => %{
+          updated_time: today,
+          updated_text: shared_text
+        }
+      }
+    }
+
+    DataStore.add_new_text(text_id, text_map)
+    # add url return with text_id
+    "localhost:4001/#{text_id}"
   end
 
-  def get_url(short_token) do
-    DataStore.get_long_url("localhost:4001/" <> short_token)
+  def get_text(text_id) do
+    {:ok, text_map} = DataStore.get_text(text_id)
+    text_map
+  end
+
+  def update_text(text_id, new_text) do
+    %{current_text: _old_text, revision_history: revision_history, created: created} =
+      get_text(text_id)
+
+    revision_count = Enum.count(revision_history)
+
+    new_revision =
+      Map.put_new(revision_history, "#{revision_count + 1}", %{
+        updated_time: DateTime.utc_now(),
+        updated_text: new_text
+      })
+
+    DataStore.update_text(text_id, %{
+      current_text: new_text,
+      revision_history: new_revision,
+      created: created
+    })
   end
 end

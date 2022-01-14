@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text Sharing</title>
+  </head>
+  <body>
+    <form style="text-align:center;" action="/share" method="POST" accept-charset="utf-8">
+      <div>
+        <label for="shared_text">Please enter something you would like to be able to share and edit!</label>
+        <br><br>
+        <input type="text" name="shared_text" id="shared_text">
+        <br><br>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

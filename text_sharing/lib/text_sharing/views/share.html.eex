@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text Sharing</title>
+  </head>
+  <body style="text-align:center;">
+    <p>Your text: <%= new_shared_text %></p>
+    <br><br>
+    <p>Please use go to this address to update your text: <%= share_url %></p>
+  </body>
+</html>
